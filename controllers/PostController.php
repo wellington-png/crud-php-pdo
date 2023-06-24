@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__)."/DAO/PostDAO.php";
-require_once dirname(__FILE__)."/controllers/IController.php";
+require_once dirname(dirname(__FILE__))."/DAO/PostDAO.php";
+require_once dirname(dirname(__FILE__))."/controllers/IController.php";
 
 
 class PostController implements IController{
@@ -12,11 +12,13 @@ class PostController implements IController{
 
     public function index(){
         $posts = $this->postDAO->findAll();
-        require_once dirname(__FILE__)."/views/posts/index.php";
+        // $getTreding = $this->postDAO->getTreding();
+        // $getPagination = $this->postDAO->paginate();
+        include './Views/posts/index.php';
     }
 
     public function create(){
-        require_once dirname(__FILE__)."/views/posts/create.php";
+        include dirname(__FILE__)."/views/posts/create.php";
     }
 
     public function store($post){
@@ -26,7 +28,7 @@ class PostController implements IController{
 
     public function edit($id){
         $post = $this->postDAO->findById($id);
-        require_once dirname(__FILE__)."/views/posts/edit.php";
+        include './Views/posts/edit.php';
     }
 
     public function update($post){

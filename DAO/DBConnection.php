@@ -3,7 +3,7 @@
         private static $instance;
         private $conn;
         public function __construct(){
-            $this->conn = new PDO("mysql:host=localhost;dbname=crud_pdo", "root", "password");
+            $this->conn = new PDO("mysql:host=localhost;dbname=db_blog", "root", "password");
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         public static function getInstance(){

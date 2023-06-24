@@ -78,6 +78,17 @@
                 echo "Erro ao obter as informações do usuário: ".$e->getMessage();
             }
         }
+
+        public function findByEmail($email){
+            try{
+                $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+                $stmt->bindParam(":email", $email);
+                $stmt->execute();
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                echo "Erro ao obter as informações do usuário: ".$e->getMessage();
+            }
+        }
         
 
     }

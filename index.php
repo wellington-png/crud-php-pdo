@@ -1,7 +1,8 @@
-        
 <?php 
     require_once dirname(__FILE__)."/controllers/PostController.php";
+    require_once dirname(__FILE__)."/controllers/UserController.php";
     $postController = new PostController();
+    $userController = new UserController();
 
     $action = isset($_GET["action"]) ? $_GET["action"] : "index";
     switch ($action) {
@@ -23,9 +24,14 @@
         case 'delete':
             $postController->delete($_GET["id"]);
             break;
+        case 'login':
+            $userController->login();
+            break;
+        case 'logout':
+            $userController->logout();
+            break;
         default:
             $postController->index();
             break;
     }
-
 ?>

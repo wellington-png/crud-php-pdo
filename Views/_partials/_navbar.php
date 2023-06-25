@@ -8,10 +8,10 @@
         <div class="navbar-buttons">
             <ul class="navbar-menu">
                 <li><a href="?action=index">Home</a></li>
-                <li><a href="list_post.html">Blog</a></li>
+                <li><a href="?action=blog-list">Blog</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="?action=login">Login</a></li>
-                <li><a href="register.html">Cadastrar</a></li>
+                <li><a href="?action=create-user">Cadastrar</a></li>
             </ul>
         </div>
         <div class="mobile-menu-icon">
@@ -24,7 +24,7 @@
             <li class="nav-item"><a href="list_post.html" class="nav-link">Blog</a></li>
             <li class="nav-item"><a href="sobre.html" class="nav-link">Sobre</a></li>
             <li class="nav-item"><a href="?action=login" class="nav-link">login</a></li>
-            <li class="nav-item"><a href="register.html" class="nav-link">Cadastrar</a></li>
+            <li class="nav-item"><a href="?action=create-user" class="nav-link">Cadastrar</a></li>
 
         </ul>
 

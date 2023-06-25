@@ -12,9 +12,13 @@ class PostController implements IController{
 
     public function index(){
         $posts = $this->postDAO->findAll();
-        // $getTreding = $this->postDAO->getTreding();
-        // $getPagination = $this->postDAO->paginate();
         include './Views/posts/index.php';
+    }
+
+    public function blog_list($page=1, $limit=10){
+        $posts = $this->postDAO->paginate($page, $limit);
+        // var_dump($posts);
+        include './Views/posts/blog-list.php';
     }
 
     public function create(){
@@ -39,6 +43,12 @@ class PostController implements IController{
     public function delete($id){
         $this->postDAO->delete($id);
         header("Location: index.php");
+    }
+
+    public function post_detail($id){
+        $post = $this->postDAO->findById($id);
+        $post_recentes = $this->postDAO->paginate(1, 3);
+        include './Views/posts/post-detail.php';
     }
         
 }

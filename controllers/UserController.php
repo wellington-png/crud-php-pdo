@@ -18,10 +18,18 @@ class UserController implements IController{
     }
 
     public function create(){
-        include dirname(__FILE__)."/views/users/create.php";
+        include "./Views/users/create.php";
     }
 
     public function store($user){
+        if ($this->userDAO->findByEmail($user["email"])) {
+            echo "Email já cadastrado";
+            return;
+        }
+        if ($user["password"] != $user["password_confirmation"]) {
+            echo "Senhas não conferem";
+            return;
+        }
         $this->userDAO->insert($user);
         header("Location: index.php");
     }

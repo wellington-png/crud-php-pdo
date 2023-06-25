@@ -109,11 +109,16 @@ class PostDAO  implements DAOInterface
 
     public function paginate($page = 1, $total = 10)
     {
-        if ($total > 50) $total = 50;
+        if ($total > 50) {
+            $total = 50;
+        }
+        
+        $offset = ($page - 1) * $total;
+        
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM posts LIMIT :page, :total");
-            $stmt->bindParam(":page", $page, PDO::PARAM_INT);
+            $stmt = $this->conn->prepare("SELECT * FROM posts LIMIT :total OFFSET :offset");
             $stmt->bindParam(":total", $total, PDO::PARAM_INT);
+            $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll();
             return $result;

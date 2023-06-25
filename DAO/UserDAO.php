@@ -13,11 +13,10 @@
 
         public function insert($post){
             try{
-                $stmt = $this->conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
+                $stmt = $this->conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
                 $stmt->bindParam(":name", $post->name);
                 $stmt->bindParam(":email", $post->email);
                 $stmt->bindParam(":password", $post->password);
-                $stmt->bindParam(":role", $post->role);
                 $stmt->execute();
             }catch(PDOException $e){
                 echo "Erro ao inserir: ".$e->getMessage();

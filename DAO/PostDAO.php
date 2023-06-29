@@ -1,9 +1,9 @@
 <?php
 require_once dirname(dirname(__FILE__)) . "/DAO/DBConnection.php";
-require_once dirname(dirname(__FILE__)) . "/DAO/DAOInterface.php";
+// require_once dirname(dirname(__FILE__)) . "/DAO/DAOInterface.php";
 
 
-class PostDAO  implements DAOInterface
+class PostDAO
 {
     private $conn;
 
@@ -13,20 +13,47 @@ class PostDAO  implements DAOInterface
         $this->conn = $db->getConnection();
     }
 
-    public function insert($post)
+    public function slugify($text)
     {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+    public function insert($user_id, $category_id, $title, $content, $excerpt, $image)
+    {
+        $slug = $this->slugify($title);
+
         try {
-            $stmt = $this->conn->prepare("INSERT INTO posts (user_id, category_id, title, slug, content, excerpt, image, status) VALUES (:user_id, :category_id, :title, :slug, :content, :excerpt, :image, :status)");
-            $stmt->bindValue(":title", $post->title);
-            $stmt->bindValue(":content", $post->content);
-            $stmt->bindValue(":excerpt", $post->excerpt);
-            $stmt->bindValue(":image", $post->image);
-            $stmt->bindValue(":status", $post->status);
-            $stmt->bindValue(":user_id", $post->user_id);
-            $stmt->bindValue(":category_id", $post->category_id);
-            $stmt->bindValue(":slug", $post->slug);
+            $stmt = $this->conn->prepare("INSERT INTO posts (user_id, category_id, title, slug, content, excerpt, image) VALUES (:user_id, :category_id, :title, :slug, :content, :excerpt, :image)");
+            $stmt->bindParam(":user_id", $user_id);
+            $stmt->bindParam(":category_id", $category_id);
+            $stmt->bindParam(":title", $title);
+            $stmt->bindParam(":slug", $slug);
+            $stmt->bindParam(":content", $content);
+            $stmt->bindParam(":excerpt", $excerpt);
+            $stmt->bindParam(":image", $image);
             $stmt->execute();
-            return $this->conn->lastInsertId();
         } catch (PDOException $e) {
             echo "Erro ao inserir: " . $e->getMessage();
         }
@@ -35,10 +62,13 @@ class PostDAO  implements DAOInterface
     public function update($post)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE posts SET title = :title, content = :content WHERE id = :id");
-            $stmt->bindParam(":title", $post->title);
-            $stmt->bindParam(":content", $post->content);
-            $stmt->bindParam(":id", $post->id);
+            $stmt = $this->conn->prepare("UPDATE posts SET category_id = :category_id, title = :title, content = :content, excerpt = :excerpt, image = :image WHERE id = :id");
+            $stmt->bindParam(":category_id", $post['categoria']);
+            $stmt->bindParam(":title", $post['title']);
+            $stmt->bindParam(":content", $post['content']);
+            $stmt->bindParam(":excerpt", $post['excerpt']);
+            $stmt->bindParam(":image", $post['image']);
+            $stmt->bindParam(":id", $post['id']);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Erro ao atualizar: " . $e->getMessage();
@@ -59,10 +89,10 @@ class PostDAO  implements DAOInterface
     public function findAll()
     {
         // try {
-            $stmt = $this->conn->prepare("SELECT * FROM posts");
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-            return $result;
+        $stmt = $this->conn->prepare("SELECT * FROM posts");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
         // } catch (PDOException $e) {
         //     echo "Erro ao listar: " . $e->getMessage();
         // }
@@ -112,9 +142,9 @@ class PostDAO  implements DAOInterface
         if ($total > 50) {
             $total = 50;
         }
-        
+
         $offset = ($page - 1) * $total;
-        
+
         try {
             $stmt = $this->conn->prepare("SELECT * FROM posts LIMIT :total OFFSET :offset");
             $stmt->bindParam(":total", $total, PDO::PARAM_INT);

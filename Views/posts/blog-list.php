@@ -57,9 +57,9 @@
             <?php foreach ($posts as $post) : ?>
                 <a href="?action=post-detail&id=<?= $post['id'] ?>">
                     <div class="card">
-                    <img src="https://via.placeholder.com/300x200" alt="Imagem do cartão">
+                    <img src="uploads/<?php echo $post['image'] ?>" alt="Imagem do cartão">
                         <h3><?= $post['title'] ?></h3>
-                        <p><?= $post['content'] ?></p>
+                        <p><?= $post['excerpt'] ?></p>
                     </div>
                 </a>
             <?php endforeach; ?>

@@ -13,9 +13,9 @@
 <body>
 
     <?php
-        require_once dirname(__FILE__)."/../_partials/_navbar.php";
+    require_once dirname(__FILE__) . "/../_partials/_navbar.php";
     ?>
-    
+
     <section class="banner">
         <div class="container container-banner">
             <div class="container-newsletter">
@@ -44,6 +44,7 @@
         <h2>New & Trendy</h2>
         <div class="border-botton"></div>
         <div class="container-new-trendy">
+        <?php foreach ($new_tre as $new_t) : ?>
             <div class="new-trendy-item"><img src="/assets/img/tecnologia-na-gestao-das-empresas.jpg" alt=""></div>
             <div class="new-trendy-item" id="foto">
                 <div class="card-header">
@@ -59,21 +60,7 @@
                     <span>Read more</span>
                 </div>
             </div>
-            <div class="new-trendy-item"><img src="/assets/img/shutterstock_1932042689.jpg"></div>
-            <div class="new-trendy-item" id="foto2">
-                <div class="card-header">
-                    <span class="Fantasy">Fantasy</span>
-                </div>
-                <div class="card-body">
-                    <h3 class="titulo">Card title</h3>
-                    <p class="pagrafo">Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <span>12 min Read</span>
-                    <span>Read more</span>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
     <section class="new-trendy">
@@ -155,7 +142,7 @@
 
     </section>
     <?php
-    require_once dirname(__FILE__)."/../_partials/_footer.php";
+    require_once dirname(__FILE__) . "/../_partials/_footer.php";
     ?>
 </body>
 

@@ -40,4 +40,4 @@
             </div>
         </div>
     </footer>
-    <script src="/js/menu_navbar.js"></script>
+    <script src="./assets/js/menu_navbar.js"></script>

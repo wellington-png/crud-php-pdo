@@ -31,7 +31,7 @@ class UserController implements IController{
             return;
         }
         $this->userDAO->insert($user);
-        header("Location: index.php");
+        header("Location: index.php?action=login");
     }
 
     public function edit($id){
@@ -56,7 +56,7 @@ class UserController implements IController{
             if($user){
                 if($user["password"] == $_POST["password"]){
                     $_SESSION["user"] = $user;
-                    header("Location: index.php");
+                    header("Location: index.php?action=admin");
                 }else{
                     echo "Senha incorreta";
                 }

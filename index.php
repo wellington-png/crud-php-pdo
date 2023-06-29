@@ -13,13 +13,13 @@
             $postController->create();
             break;
         case 'store':
-            $postController->store($_POST);
+            $postController->store($_POST, $_FILES);
             break;
         case 'edit':
             $postController->edit($_GET["id"]);
             break;
         case 'update':
-            $postController->update($_POST);
+            $postController->update($_POST, $_FILES);
             break;
         case 'delete':
             $postController->delete($_GET["id"]);
@@ -29,9 +29,9 @@
             $postController->post_detail($_GET["id"]);
             break;
         case 'blog-list':
-            $postController->blog_list(1, 50);
-            // ---------------------------- Users ----------------------------
+            $postController->blog_list(1, 3);
             break;
+        // ---------------------------- Users ----------------------------
         case 'login':
             $userController->login();
             break;
@@ -44,7 +44,14 @@
         case 'store-user':
             $userController->store($_POST);
             break;
-        
+        // ---------------------------- ADMIN ----------------------------
+
+        case 'admin':
+            $postController->admin();
+            break;
+        case 'list-posts-admin':
+            $postController->list_posts_admin();
+            break;
         default:
             $postController->index();
             break;

@@ -366,12 +366,7 @@ input[type="submit"]:hover {
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #eee;
-    color: #111;
-    height: 200vh;
-}
+
 
 button {
     margin: 0.75rem;

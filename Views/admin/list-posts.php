@@ -29,7 +29,7 @@
                     <p><?php echo $post['excerpt']; ?></p>
                     <a class="btn-details" href="?action=post-detail&id=<?php echo $post['id']; ?>">Leia Mais</a>
                     <a class="btn-edit" href="?action=edit&id=<?php echo $post['id']; ?>">Editar</a>
-                    <button class="btn btn-delete" data-modal-target="modal1">Apagar</button>
+                    <button  class="btn btn-delete" data-modal-target="<?php echo $post['id']; ?>">Apagar</button>
                 </div>
             <?php endforeach; ?>
         </div>

@@ -22,7 +22,8 @@ document.addEventListener("keydown", event => {
 });
 
 function toggleModal(modalId) {
-  const modal = document.getElementById(modalId);
+  const modal = document.getElementById('modal1');
+  const btnDelete = document.getElementById('confirmar-delete');
 
   if(getComputedStyle(modal).display==="flex") { // alternatively: if(modal.classList.contains("modal-show"))
     modal.classList.add("modal-hide");
@@ -36,5 +37,6 @@ function toggleModal(modalId) {
     document.body.style.overflow = "hidden"; // Optional: in order to enable/disable page scrolling while modal is hidden/shown
     modal.style.display = "flex";
     modal.classList.add("modal-show");
+    btnDelete.href = "index.php?action=delete&id=" + modalId;
   }
 }

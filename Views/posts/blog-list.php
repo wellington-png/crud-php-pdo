@@ -45,7 +45,7 @@
         <div class="border-botton"></div>
         <div class="now-trend-container">
 
-        <!-- <a href="post.html">
+            <!-- <a href="post.html">
                 <div class="card">
                     <img src="https://via.placeholder.com/300x200" alt="Imagem do cartão">
                     <h3>Título do Cartão</h3>
@@ -57,9 +57,9 @@
             <?php foreach ($posts as $post) : ?>
                 <a href="?action=post-detail&id=<?= $post['id'] ?>">
                     <div class="card">
-                    <img src="uploads/<?php echo $post['image'] ?>" alt="Imagem do cartão">
-                        <h3><?= $post['title'] ?></h3>
-                        <p><?= $post['excerpt'] ?></p>
+                        <img src="uploads/<?php echo $post['image'] ?>" alt="Imagem do cartão">
+                        <h3 class="titulo-1"><?= $post['title'] ?></h3>
+                        <p class="trecho-1"><?= $post['excerpt'] ?></p>
                     </div>
                 </a>
             <?php endforeach; ?>
@@ -77,9 +77,20 @@
         </div>
     </section>
     <?php
-    require_once dirname(__FILE__) . "/../_partials/_navbar.php";
-    ?>
+    require_once dirname(__FILE__) . "/../_partials/_footer.php";?>
+    <script>
+        const titulo = document.querySelectorAll('.titulo-1');
+        const descricao = document.querySelectorAll('.trecho-1');
 
+        titulo.forEach((elemento) => {
+            console.log(elemento.textContent);
+            elemento.textContent = limitarTexto(elemento.textContent, 100);
+        });
+
+        descricao.forEach((elemento) => {
+            elemento.textContent = limitarTexto(elemento.textContent, 50);
+        });
+    </script>
 </body>
 
 </html>
